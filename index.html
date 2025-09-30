@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Login Glowing with Playlist & Music</title>
+<style>
+* { box-sizing:border-box; transition: all 0.3s ease; }
+body, html { margin:0; padding:0; height:100%; font-family:'Poppins',sans-serif; overflow:hidden; }
+
+/* Background Video */
+#bg-video { position:fixed; top:0; left:0; width:100vw; height:100vh; object-fit:cover; z-index:-2; }
+#overlay { position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:-1; }
+
+/* Watermark */
+#watermark { position:fixed; top:10px; left:50%; transform:translateX(-50%); font-size:1rem; font-weight:bold; color:#00ffff; text-shadow:0 0 6px #00f0ff; z-index:30; }
+
+/* Login Box */
+.login-container {
+  position:relative; z-index:10; background:rgba(10,10,30,0.85);
+  padding:40px 35px; border-radius:16px;
+  box-shadow:0 0 10px #00f0ff,0 0 20px #00f0ff,0 0 30px #00f0ff;
+  width:340px; text-align:center;
+  animation:glowPulse 3s infinite alternate; margin:auto;
+  top:50vh; transform:translateY(-50%); color:#fff;
+}
+@keyframes glowPulse { 0%{box-shadow:0 0 10px #00f0ff;} 100%{box-shadow:0 0 25px #00ffff;} }
+.login-container h2 { margin-bottom:28px; font-weight:700; font-size:2rem; text-shadow:0 0 8px #00f0ff; }
+.input-group { margin-bottom:20px; text-align:left; }
+.input-group label { display:block; margin-bottom:8px; font-weight:600; font-size:1rem; color:#00e5ff; text-shadow:0 0 5px #00b8d9; }
+.input-group input { width:100%; padding:14px 18px; border-radius:12px; border:2px solid #004d66; background:rgba(0,0,0,0.8); color:#00f0ff; font-size:1rem; box-shadow:inset 0 0 5px #00f0ff; }
+.input-group input::placeholder { color:#008caa99; }
+.btn-login { width:100%; padding:16px 0; border-radius:14px; font-weight:700; font-size:1.2rem; color:#000; background:linear-gradient(45deg,#00ffff,#0066cc); border:none; cursor:pointer; box-shadow:0 0 15px #00ffff; text-transform:uppercase; letter-spacing:1.5px; }
+.btn-login:hover { background:linear-gradient(45deg,#0066cc,#00ffff); color:#fff; }
+.error-msg, .success-msg { margin-top:16px; font-weight:700; font-size:1rem; min-height:24px; }
+.error-msg { color:#ff4d4d; text-shadow:0 0 4px #ff0000; }
+.success-msg { color:#7fff7f; text-shadow:0 0 6px #00ff00; }
+
+/* Music Player Compact */
+#music-player {
+  position:fixed; bottom:15px; left:50%; transform:translateX(-50%);
+  background:rgba(0,0,0,0.7); padding:8px 16px;
+  border-radius:30px; display:flex; flex-direction:column; align-items:center; gap:4px;
+  color:#00ffff; font-size:0.95rem; box-shadow:0 0 15px #00ffff,0 0 30px #00f0ff; z-index:20;
+}
+#music-controls { display:flex; align-items:center; gap:8px; }
+#music-player button { background:none; border:none; color:#00ffff; font-size:1.1rem; cursor:pointer; text-shadow:0 0 6px #00f0ff; }
+#timeDisplay { font-size:0.75rem; color:#00e5ff; font-weight:bold; margin-top:2px; }
+#progressContainer { width:180px; height:5px; background:rgba(255,255,255,0.2); border-radius:3px; overflow:hidden; cursor:pointer; }
+#progressBar { width:0%; height:100%; background:linear-gradient(90deg,#00ffff,#0066cc); border-radius:3px; transition: width 0.1s linear; }
+
+/* Equalizer Animation */
+.equalizer { display:flex; gap:2px; align-items:flex-end; height:14px; margin-top:2px; }
+.bar { width:2px; background:#00ffff; box-shadow:0 0 4px #00f0ff; border-radius:1px; animation:bounce 1s infinite; }
+.bar:nth-child(1){animation-delay:0s;} .bar:nth-child(2){animation-delay:0.15s;} .bar:nth-child(3){animation-delay:0.3s;} .bar:nth-child(4){animation-delay:0.45s;} .bar:nth-child(5){animation-delay:0.6s;}
+@keyframes bounce { 0%,100%{height:3px;}50%{height:14px;} }
+.equalizer.paused .bar { animation-play-state:paused; }
+
+/* Dark & Light Mode */
+body.light-mode #overlay { background: rgba(255,255,255,0.4); }
+body.light-mode .login-container { background: rgba(255,255,255,0.85); color:#000; box-shadow:0 0 15px #00aaff; }
+body.light-mode .input-group label { color:#006699; text-shadow:none; }
+body.light-mode .input-group input { background:#fff; color:#000; border:2px solid #00aaff; }
+#mode-toggle { position:fixed; top:10px; right:10px; background:rgba(0,0,0,0.6); color:#00ffff; border:none; border-radius:20px; padding:6px 12px; cursor:pointer; font-weight:bold; z-index:30; }
+</style>
+</head>
+<body>
+
+<div id="watermark">Powered By Aliff🍓</div>
+<button id="mode-toggle">🌙/☀️</button>
+
+<video autoplay muted loop id="bg-video" playsinline>
+  <source src="https://files.catbox.moe/33cgjz.mp4" type="video/mp4" />
+</video>
+<div id="overlay"></div>
+
+<div class="login-container">
+  <h2>Login Dulu Yaa:)</h2>
+  <form id="loginForm" novalidate>
+    <div class="input-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required placeholder="Masukkin usernamelu" />
+    </div>
+    <div class="input-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required placeholder="Masukkin passwordlu" />
+    </div>
+    <button type="submit" class="btn-login">Masuk</button>
+    <div class="error-msg" id="errorMsg"></div>
+    <div class="success-msg" id="successMsg"></div>
+  </form>
+</div>
+
+<audio id="bg-music"></audio>
+<div id="music-player">
+  <div id="music-controls">
+    <button id="prevBtn">⏮️</button>
+    <button id="playPauseBtn">▶️</button>
+    <button id="nextBtn">⏭️</button>
+  </div>
+  <div class="equalizer paused" id="equalizer">
+    <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+  </div>
+  <div id="progressContainer"><div id="progressBar"></div></div>
+  <div id="timeDisplay">00:00 / 00:00</div>
+</div>
+
+<script>
+// Login
+const loginForm=document.getElementById('loginForm');
+const errorMsg=document.getElementById('errorMsg');
+const successMsg=document.getElementById('successMsg');
+loginForm.addEventListener('submit',e=>{
+  e.preventDefault(); errorMsg.textContent=''; successMsg.textContent='';
+  const username=loginForm.username.value.trim();
+  const password=loginForm.password.value.trim();
+  if(!username||!password){ errorMsg.textContent='Username dan password wajib diisi.'; return; }
+  if(username==='aliff'&&password==='230408'){ successMsg.textContent='Login berhasil! Welcome...';
+    setTimeout(()=>{ window.location.href='https://alifkece.github.io/web-internasional-aliftzy/'; },1500);
+  } else { errorMsg.textContent='Tidak ada akses untuk Login.'; }
+});
+
+// Music
+const music=document.getElementById('bg-music');
+const playPauseBtn=document.getElementById('playPauseBtn');
+const prevBtn=document.getElementById('prevBtn');
+const nextBtn=document.getElementById('nextBtn');
+const equalizer=document.getElementById('equalizer');
+const progressBar=document.getElementById('progressBar');
+const progressContainer=document.getElementById('progressContainer');
+const timeDisplay=document.getElementById('timeDisplay');
+let isPlaying=false, currentTrack=0;
+const playlist=[
+  "https://files.catbox.moe/aotg6r.mp3",
+  "https://files.catbox.moe/p3dnh7.m4a",
+  "https://files.catbox.moe/8woj3f.mp3"
+];
+function loadTrack(index){ music.src=playlist[index]; music.load(); music.play(); }
+loadTrack(currentTrack);
+
+playPauseBtn.addEventListener('click',()=>{ if(isPlaying){ music.pause(); } else { music.play(); } });
+music.addEventListener('play',()=>{ isPlaying=true; playPauseBtn.textContent='⏸️'; equalizer.classList.remove('paused'); });
+music.addEventListener('pause',()=>{ isPlaying=false; playPauseBtn.textContent='▶️'; equalizer.classList.add('paused'); });
+nextBtn.addEventListener('click',()=>{ currentTrack=(currentTrack+1)%playlist.length; loadTrack(currentTrack); });
+prevBtn.addEventListener('click',()=>{ currentTrack=(currentTrack-1+playlist.length)%playlist.length; loadTrack(currentTrack); });
+
+function formatTime(sec){ const m=Math.floor(sec/60)||0; const s=Math.floor(sec%60)||0; return `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`; }
+music.addEventListener('timeupdate',()=>{
+  const progressPercent=(music.currentTime/music.duration)*100||0;
+  progressBar.style.width=progressPercent+'%';
+  timeDisplay.textContent=`${formatTime(music.currentTime)} / ${formatTime(music.duration)}`;
+});
+progressContainer.addEventListener('click',e=>{
+  const rect=progressContainer.getBoundingClientRect();
+  const clickX=e.clientX-rect.left;
+  const newTime=(clickX/rect.width)*music.duration;
+  music.currentTime=newTime;
+});
+
+// Dark/Light Mode
+document.getElementById('mode-toggle').addEventListener('click',()=>{ document.body.classList.toggle('light-mode'); });
+</script>
+
+</body>
+</html>
