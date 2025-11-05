@@ -11,26 +11,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
 
 <style>
+/* --- Style tetap sama --- */
 * { box-sizing:border-box; transition: all 0.3s ease; }
 body, html { margin:0; padding:0; height:100%; font-family:'Poppins',sans-serif; overflow:hidden; }
-
-/* Background Video */
 #bg-video { position:fixed; top:0; left:0; width:100vw; height:100vh; object-fit:cover; z-index:-2; }
 #overlay { position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:-1; }
-
-/* Watermark Nabla */
-#watermark {
-  position:fixed; top:10px; left:50%; transform:translateX(-50%);
-  font-size:1.2rem; font-weight:400;
-  font-family:"Nabla", system-ui;
-  font-optical-sizing:auto;
-  font-style:normal;
-  font-variation-settings:"EDPT" 100, "EHLT" 12;
-  z-index:30;
-}
-
-/* Login Box */
-.login-container {
+#watermark { position:fixed; top:10px; left:50%; transform:translateX(-50%); font-size:1.2rem; font-weight:400; font-family:"Nabla", system-ui; z-index:30; }
+.form-container {
   position:relative; z-index:10; background:rgba(10,10,30,0.85);
   padding:40px 35px; border-radius:16px;
   box-shadow:0 0 10px #00f0ff,0 0 20px #00f0ff,0 0 30px #00f0ff;
@@ -39,44 +26,18 @@ body, html { margin:0; padding:0; height:100%; font-family:'Poppins',sans-serif;
   top:50vh; transform:translateY(-50%); color:#fff;
 }
 @keyframes glowPulse { 0%{box-shadow:0 0 10px #00f0ff;} 100%{box-shadow:0 0 25px #00ffff;} }
-
-/* Judul Login */
-.login-container h2 {
-  margin-bottom:28px;
-  font-weight:700;
-  font-size:2rem;
-  text-shadow:0 0 8px #00f0ff;
-  font-family: "Nosifer", sans-serif;
-}
-
-/* Input Fields Creepster */
+.form-container h2 { margin-bottom:28px; font-weight:700; font-size:2rem; text-shadow:0 0 8px #00f0ff; font-family:"Nosifer", sans-serif; }
 .input-group { margin-bottom:20px; text-align:left; }
 .input-group label { display:block; margin-bottom:8px; font-weight:600; font-size:1rem; color:#00e5ff; text-shadow:0 0 5px #00b8d9; }
-.input-group input {
-  width:100%; padding:14px 18px; border-radius:12px; border:2px solid #004d66;
-  background:rgba(0,0,0,0.8);
-  color:#00f0ff;
-  font-size:1rem;
-  box-shadow:inset 0 0 5px #00f0ff;
-  font-family:"Creepster", system-ui;
-  font-weight:400;
-  font-style:normal;
-}
+.input-group input { width:100%; padding:14px 18px; border-radius:12px; border:2px solid #004d66; background:rgba(0,0,0,0.8); color:#00f0ff; font-size:1rem; box-shadow:inset 0 0 5px #00f0ff; font-family:"Creepster", system-ui; font-weight:400; font-style:normal; }
 .input-group input::placeholder { color:#00bfff; }
-
-/* Button Masuk Creepster */
-.btn-login {
-  width:100%; padding:16px 0; border-radius:14px; font-weight:400; font-size:1.2rem;
-  color:#000; background:linear-gradient(45deg,#00ffff,#0066cc); border:none; cursor:pointer;
-  box-shadow:0 0 15px #00ffff; text-transform:uppercase; letter-spacing:1.5px;
-  font-family:"Creepster", system-ui;
-}
-.btn-login:hover { background:linear-gradient(45deg,#0066cc,#00ffff); color:#fff; }
-
-/* Error & Success messages */
+.btn-login, .btn-register { width:100%; padding:16px 0; border-radius:14px; font-weight:400; font-size:1.2rem; color:#000; background:linear-gradient(45deg,#00ffff,#0066cc); border:none; cursor:pointer; box-shadow:0 0 15px #00ffff; text-transform:uppercase; letter-spacing:1.5px; font-family:"Creepster", system-ui; margin-bottom:10px; }
+.btn-login:hover, .btn-register:hover { background:linear-gradient(45deg,#0066cc,#00ffff); color:#fff; }
+.toggle-btn { background:none; border:none; color:#00ffff; font-family:"Creepster", system-ui; margin-bottom:20px; cursor:pointer; font-size:1rem; text-decoration:underline; }
 .error-msg, .success-msg { margin-top:16px; font-weight:700; font-size:1rem; min-height:24px; }
 .error-msg { color:#ff4d4d; text-shadow:0 0 4px #ff0000; }
 .success-msg { color:#7fff7f; text-shadow:0 0 6px #00ff00; }
+#mode-toggle { position:fixed; top:10px; right:10px; background:rgba(0,0,0,0.6); color:#00ffff; border:none; border-radius:20px; padding:6px 12px; cursor:pointer; font-weight:bold; z-index:30; }
 
 /* Music Player Compact */
 #music-player {
@@ -90,8 +51,6 @@ body, html { margin:0; padding:0; height:100%; font-family:'Poppins',sans-serif;
 #timeDisplay { font-size:0.75rem; color:#00e5ff; font-weight:bold; margin-top:2px; }
 #progressContainer { width:180px; height:5px; background:rgba(255,255,255,0.2); border-radius:3px; overflow:hidden; cursor:pointer; }
 #progressBar { width:0%; height:100%; background:linear-gradient(90deg,#00ffff,#0066cc); border-radius:3px; transition: width 0.1s linear; }
-
-/* Equalizer */
 .equalizer { display:flex; gap:2px; align-items:flex-end; height:14px; margin-top:2px; }
 .bar { width:2px; background:#00ffff; box-shadow:0 0 4px #00f0ff; border-radius:1px; animation:bounce 1s infinite; }
 .bar:nth-child(1){animation-delay:0s;} .bar:nth-child(2){animation-delay:0.15s;} .bar:nth-child(3){animation-delay:0.3s;} .bar:nth-child(4){animation-delay:0.45s;} .bar:nth-child(5){animation-delay:0.6s;}
@@ -100,10 +59,9 @@ body, html { margin:0; padding:0; height:100%; font-family:'Poppins',sans-serif;
 
 /* Dark & Light Mode */
 body.light-mode #overlay { background: rgba(255,255,255,0.4); }
-body.light-mode .login-container { background: rgba(255,255,255,0.85); color:#000; box-shadow:0 0 15px #00aaff; }
+body.light-mode .form-container { background: rgba(255,255,255,0.85); color:#000; box-shadow:0 0 15px #00aaff; }
 body.light-mode .input-group label { color:#006699; text-shadow:none; }
 body.light-mode .input-group input { background:#fff; color:#000; border:2px solid #00aaff; }
-#mode-toggle { position:fixed; top:10px; right:10px; background:rgba(0,0,0,0.6); color:#00ffff; border:none; border-radius:20px; padding:6px 12px; cursor:pointer; font-weight:bold; z-index:30; }
 </style>
 </head>
 <body>
@@ -116,23 +74,42 @@ body.light-mode .input-group input { background:#fff; color:#000; border:2px sol
 </video>
 <div id="overlay"></div>
 
-<div class="login-container">
-  <h2>Login Dulu Yaa:)</h2>
+<div class="form-container">
+  <h2 id="formTitle">Login Dulu Yaa:)</h2>
+  <button class="toggle-btn" id="toggleForm">Belum punya akun? Buat Akun</button>
+
+  <!-- Login Form -->
   <form id="loginForm" novalidate>
     <div class="input-group">
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" required placeholder="Masukkin usernamelu" />
+      <label for="loginUsername">Username</label>
+      <input type="text" id="loginUsername" name="username" required placeholder="Masukkan username" />
     </div>
     <div class="input-group">
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" required placeholder="Masukkin passwordlu" />
+      <label for="loginPassword">Password</label>
+      <input type="password" id="loginPassword" name="password" required placeholder="Masukkan password" />
     </div>
     <button type="submit" class="btn-login">Masuk</button>
-    <div class="error-msg" id="errorMsg"></div>
-    <div class="success-msg" id="successMsg"></div>
+    <div class="error-msg" id="loginError"></div>
+    <div class="success-msg" id="loginSuccess"></div>
+  </form>
+
+  <!-- Register Form -->
+  <form id="registerForm" novalidate style="display:none;">
+    <div class="input-group">
+      <label for="regUsername">Username</label>
+      <input type="text" id="regUsername" name="username" required placeholder="Masukkan username" />
+    </div>
+    <div class="input-group">
+      <label for="regPassword">Password</label>
+      <input type="password" id="regPassword" name="password" required placeholder="Masukkan password" />
+    </div>
+    <button type="submit" class="btn-register">Daftar</button>
+    <div class="error-msg" id="regError"></div>
+    <div class="success-msg" id="regSuccess"></div>
   </form>
 </div>
 
+<!-- Music Player -->
 <audio id="bg-music"></audio>
 <div id="music-player">
   <div id="music-controls">
@@ -148,22 +125,63 @@ body.light-mode .input-group input { background:#fff; color:#000; border:2px sol
 </div>
 
 <script>
-// Login
-const loginForm=document.getElementById('loginForm');
-const errorMsg=document.getElementById('errorMsg');
-const successMsg=document.getElementById('successMsg');
-loginForm.addEventListener('submit',e=>{
-  e.preventDefault(); errorMsg.textContent=''; successMsg.textContent='';
-  const username=loginForm.username.value.trim();
-  const password=loginForm.password.value.trim();
-  if(!username||!password){ errorMsg.textContent='Username dan password wajib diisi.'; return; }
-  if(username==='aliff'&&password==='230408'){
-    successMsg.textContent='Login berhasil! Welcome all...';
-    setTimeout(()=>{ window.location.href='https://web-internasional-aliftzy-b6ct.vercel.app/'; },1500);
-  } else { errorMsg.textContent='Tidak ada akses untuk Login...'; }
+// Toggle Login/Register
+const toggleBtn = document.getElementById('toggleForm');
+const loginForm = document.getElementById('loginForm');
+const registerForm = document.getElementById('registerForm');
+const formTitle = document.getElementById('formTitle');
+toggleBtn.addEventListener('click',()=>{
+  if(loginForm.style.display!=='none'){
+    loginForm.style.display='none';
+    registerForm.style.display='block';
+    formTitle.textContent='Buat Akun Baru:';
+    toggleBtn.textContent='Sudah punya akun? Login';
+  }else{
+    loginForm.style.display='block';
+    registerForm.style.display='none';
+    formTitle.textContent='Login Dulu Yaa:)';
+    toggleBtn.textContent='Belum punya akun? Buat Akun';
+  }
 });
 
-// Music
+// Login Logic
+const loginError = document.getElementById('loginError');
+const loginSuccess = document.getElementById('loginSuccess');
+loginForm.addEventListener('submit', e=>{
+  e.preventDefault();
+  loginError.textContent=''; loginSuccess.textContent='';
+  const username=loginForm.username.value.trim();
+  const password=loginForm.password.value.trim();
+  if(!username||!password){ loginError.textContent='Username dan password wajib diisi.'; return; }
+  if(username==='aliff' && password==='230408'){
+    loginSuccess.textContent='Login berhasil! Welcome all...';
+    setTimeout(()=>{ window.location.href='https://web-internasional-aliftzy-b6ct.vercel.app/'; },1500);
+  }else{ loginError.textContent='Tidak ada akses untuk Login...'; }
+});
+
+// Register Logic (Spreadsheet)
+const regError = document.getElementById('regError');
+const regSuccess = document.getElementById('regSuccess');
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby_TvyWxLEmlIW3tGm6tZgwv_YKaRLUjqNMvhBP9d_276C1JUais9OXShR98mm4evUo/exec'; // <-- Ganti URL Web App
+registerForm.addEventListener('submit', e=>{
+  e.preventDefault();
+  regError.textContent=''; regSuccess.textContent='';
+  const username = registerForm.username.value.trim();
+  const password = registerForm.password.value.trim();
+  if(!username||!password){ regError.textContent='Semua field wajib diisi!'; return; }
+
+  fetch(GOOGLE_SCRIPT_URL,{
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({username,password})
+  }).then(()=>{
+    regSuccess.textContent='Akun berhasil dibuat!';
+    registerForm.reset();
+  }).catch(err=>{ regError.textContent='Terjadi kesalahan, coba lagi.'; console.log(err); });
+});
+
+// Music Player
 const music=document.getElementById('bg-music');
 const playPauseBtn=document.getElementById('playPauseBtn');
 const prevBtn=document.getElementById('prevBtn');
@@ -172,30 +190,28 @@ const equalizer=document.getElementById('equalizer');
 const progressBar=document.getElementById('progressBar');
 const progressContainer=document.getElementById('progressContainer');
 const timeDisplay=document.getElementById('timeDisplay');
-let isPlaying=false, currentTrack=0;
+let isPlaying=false,currentTrack=0;
 const playlist=[
   "https://files.catbox.moe/aotg6r.mp3",
   "https://files.catbox.moe/p3dnh7.m4a",
   "https://files.catbox.moe/8woj3f.mp3"
 ];
-function loadTrack(index){ music.src=playlist[index]; music.load(); music.play(); }
+function loadTrack(i){ music.src=playlist[i]; music.load(); music.play(); }
 loadTrack(currentTrack);
-playPauseBtn.addEventListener('click',()=>{ if(isPlaying){ music.pause(); } else { music.play(); } });
+playPauseBtn.addEventListener('click',()=>{ isPlaying?music.pause():music.play(); });
 music.addEventListener('play',()=>{ isPlaying=true; playPauseBtn.textContent='⏸️'; equalizer.classList.remove('paused'); });
 music.addEventListener('pause',()=>{ isPlaying=false; playPauseBtn.textContent='▶️'; equalizer.classList.add('paused'); });
 nextBtn.addEventListener('click',()=>{ currentTrack=(currentTrack+1)%playlist.length; loadTrack(currentTrack); });
 prevBtn.addEventListener('click',()=>{ currentTrack=(currentTrack-1+playlist.length)%playlist.length; loadTrack(currentTrack); });
-function formatTime(sec){ const m=Math.floor(sec/60)||0; const s=Math.floor(sec%60)||0; return `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`; }
 music.addEventListener('timeupdate',()=>{
   const progressPercent=(music.currentTime/music.duration)*100||0;
   progressBar.style.width=progressPercent+'%';
-  timeDisplay.textContent=`${formatTime(music.currentTime)} / ${formatTime(music.duration)}`;
+  timeDisplay.textContent=`${Math.floor(music.currentTime/60).toString().padStart(2,'0')}:${Math.floor(music.currentTime%60).toString().padStart(2,'0')} / ${Math.floor(music.duration/60).toString().padStart(2,'0')}:${Math.floor(music.duration%60).toString().padStart(2,'0')}`;
 });
 progressContainer.addEventListener('click',e=>{
   const rect=progressContainer.getBoundingClientRect();
   const clickX=e.clientX-rect.left;
-  const newTime=(clickX/rect.width)*music.duration;
-  music.currentTime=newTime;
+  music.currentTime=(clickX/rect.width)*music.duration;
 });
 
 // Dark/Light Mode
