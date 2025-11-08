@@ -181,7 +181,7 @@ loginForm.addEventListener('submit', e=>{
   firebase.auth().signInWithEmailAndPassword(email,password)
     .then(()=>{
       loginSuccess.textContent='Login berhasil! Mengarahkan...';
-      setTimeout(()=>{ window.location.href='https://web-internasional-aliftzy-b6ct.vercel.app/'; },1500);
+      setTimeout(()=>{ window.location.href='https://alifkece.github.io/welcome/'; },1500);
     })
     .catch(err=>{ loginError.textContent=err.message; });
 });
