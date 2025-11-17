@@ -15,7 +15,32 @@
 body, html { margin:0; padding:0; height:100%; font-family:'Poppins',sans-serif; overflow:hidden; }
 #bg-video { position:fixed; top:0; left:0; width:100vw; height:100vh; object-fit:cover; z-index:-2; }
 #overlay { position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:-1; }
-#watermark { position:fixed; top:10px; left:50%; transform:translateX(-50%); font-size:1.2rem; font-weight:400; font-family:"Nabla", system-ui; z-index:30; }
+
+/* 🔥 WATERMARK TYPEWRITER + GLITCH HALUS */
+#watermark { 
+  position:fixed; top:10px; left:50%; transform:translateX(-50%);
+  font-size:1.2rem; font-weight:400; font-family:"Nabla", system-ui;
+  z-index:30; white-space:nowrap;
+}
+#poweredText { 
+  border-right:2px solid #00ffff;
+  padding-right:4px; 
+  animation:blinkCursor .7s infinite, glitchText 1.5s infinite;
+}
+@keyframes blinkCursor {
+  0%,100% { border-color:transparent; }
+  50% { border-color:#00ffff; }
+}
+@keyframes glitchText {
+  0% { text-shadow: 0 0 1px #00ffff; transform:translate(0,0);}
+  20% { text-shadow: 1px 0 2px #00ffff, -1px 1px 1px #00ffff; transform:translate(-1px,1px);}
+  40% { text-shadow: -1px -1px 2px #00ffff, 1px 1px 1px #00ffff; transform:translate(1px,-1px);}
+  60% { text-shadow: 1px 1px 2px #00ffff, -1px -1px 1px #00ffff; transform:translate(-1px,0);}
+  80% { text-shadow: -1px 0 2px #00ffff, 1px 0 1px #00ffff; transform:translate(1px,1px);}
+  100% { text-shadow: 0 0 1px #00ffff; transform:translate(0,0);}
+}
+
+/* Form Container */
 .form-container {
   position:relative; z-index:10; background:rgba(10,10,30,0.85);
   padding:40px 35px; border-radius:16px;
@@ -39,12 +64,7 @@ body, html { margin:0; padding:0; height:100%; font-family:'Poppins',sans-serif;
 #mode-toggle { position:fixed; top:10px; right:10px; background:rgba(0,0,0,0.6); color:#00ffff; border:none; border-radius:20px; padding:6px 12px; cursor:pointer; font-weight:bold; z-index:30; }
 
 /* Music Player Compact */
-#music-player {
-  position:fixed; bottom:15px; left:50%; transform:translateX(-50%);
-  background:rgba(0,0,0,0.7); padding:8px 16px;
-  border-radius:30px; display:flex; flex-direction:column; align-items:center; gap:4px;
-  color:#00ffff; font-size:0.95rem; box-shadow:0 0 15px #00ffff,0 0 30px #00f0ff; z-index:20;
-}
+#music-player { position:fixed; bottom:15px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.7); padding:8px 16px; border-radius:30px; display:flex; flex-direction:column; align-items:center; gap:4px; color:#00ffff; font-size:0.95rem; box-shadow:0 0 15px #00ffff,0 0 30px #00f0ff; z-index:20; }
 #music-controls { display:flex; align-items:center; gap:8px; }
 #music-player button { background:none; border:none; color:#00ffff; font-size:1.1rem; cursor:pointer; text-shadow:0 0 6px #00f0ff; }
 #timeDisplay { font-size:0.75rem; color:#00e5ff; font-weight:bold; margin-top:2px; }
@@ -65,7 +85,7 @@ body.light-mode .input-group input { background:#fff; color:#000; border:2px sol
 </head>
 <body>
 
-<div id="watermark">Powered By Aliff🍓</div>
+<div id="watermark"><span id="poweredText"></span></div>
 <button id="mode-toggle">🌙/☀️</button>
 
 <video autoplay muted loop id="bg-video" playsinline>
@@ -108,7 +128,6 @@ body.light-mode .input-group input { background:#fff; color:#000; border:2px sol
   </form>
 </div>
 
-<!-- Music Player -->
 <audio id="bg-music"></audio>
 <div id="music-player">
   <div id="music-controls">
@@ -128,62 +147,65 @@ body.light-mode .input-group input { background:#fff; color:#000; border:2px sol
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
 <script>
+// -------------------------
+// Watermark Typewriter + Glitch
+const poweredWords=["Powered By Aliff🍓","Made With Love🍓","Created By Aliff🍓"];
+let pwIndex=0,charIndex=0;
+const poweredText=document.getElementById("poweredText");
+function typeEffect(){
+  let current=poweredWords[pwIndex];
+  poweredText.textContent=current.slice(0,charIndex);
+  charIndex++;
+  if(charIndex<=current.length){ setTimeout(typeEffect,80); } 
+  else { setTimeout(eraseEffect,1400); }
+}
+function eraseEffect(){
+  let current=poweredWords[pwIndex];
+  poweredText.textContent=current.slice(0,charIndex);
+  charIndex--;
+  if(charIndex>=0){ setTimeout(eraseEffect,50); } 
+  else { pwIndex=(pwIndex+1)%poweredWords.length; setTimeout(typeEffect,250); }
+}
+typeEffect();
+
 // Firebase Config
-const firebaseConfig = {
-  apiKey: "AIzaSyAUfcPgiURb1mhB77m-3zrqYS4eSi9T2AY",
-  authDomain: "database-1fba7.firebaseapp.com",
-  projectId: "database-1fba7",
-  storageBucket: "database-1fba7.appspot.com",
-  messagingSenderId: "460028472645",
-  appId: "1:460028472645:web:YOUR_APP_ID" // ganti YOUR_APP_ID
-};
+const firebaseConfig={apiKey:"AIzaSyAUfcPgiURb1mhB77m-3zrqYS4eSi9T2AY",authDomain:"database-1fba7.firebaseapp.com",projectId:"database-1fba7",storageBucket:"database-1fba7.appspot.com",messagingSenderId:"460028472645",appId:"1:460028472645:web:YOUR_APP_ID"};
 firebase.initializeApp(firebaseConfig);
 
 // Toggle Forms
-const toggleBtn = document.getElementById('toggleForm');
-const loginForm = document.getElementById('loginForm');
-const registerForm = document.getElementById('registerForm');
-const formTitle = document.getElementById('formTitle');
-toggleBtn.addEventListener('click', ()=>{
-  if(loginForm.style.display !== 'none'){
-    loginForm.style.display = 'none'; registerForm.style.display = 'block';
-    formTitle.textContent = 'Buat Akun Baru:'; toggleBtn.textContent = 'Sudah punya akun? Login';
-  } else {
-    loginForm.style.display = 'block'; registerForm.style.display = 'none';
-    formTitle.textContent = 'Login Dulu Yaa:)'; toggleBtn.textContent = 'Belum punya akun? Buat Akun';
-  }
+const toggleBtn=document.getElementById('toggleForm');
+const loginForm=document.getElementById('loginForm');
+const registerForm=document.getElementById('registerForm');
+const formTitle=document.getElementById('formTitle');
+toggleBtn.addEventListener('click',()=>{
+  if(loginForm.style.display!=='none'){ loginForm.style.display='none'; registerForm.style.display='block'; formTitle.textContent='Buat Akun Baru:'; toggleBtn.textContent='Sudah punya akun? Login'; }
+  else{ loginForm.style.display='block'; registerForm.style.display='none'; formTitle.textContent='Login Dulu Yaa:)'; toggleBtn.textContent='Belum punya akun? Buat Akun'; }
 });
 
 // Register
-const regError = document.getElementById('regError');
-const regSuccess = document.getElementById('regSuccess');
-registerForm.addEventListener('submit', e=>{
+const regError=document.getElementById('regError');
+const regSuccess=document.getElementById('regSuccess');
+registerForm.addEventListener('submit',e=>{
   e.preventDefault();
-  const email = document.getElementById('regEmail').value;
-  const password = document.getElementById('regPass').value;
+  const email=document.getElementById('regEmail').value;
+  const password=document.getElementById('regPass').value;
   regError.textContent=''; regSuccess.textContent='';
   firebase.auth().createUserWithEmailAndPassword(email,password)
-    .then(()=>{
-      regSuccess.textContent='Akun berhasil dibuat!';
-      registerForm.reset();
-    })
-    .catch(err=>{ regError.textContent=err.message; });
+  .then(()=>{ regSuccess.textContent='Akun berhasil dibuat!'; registerForm.reset(); })
+  .catch(err=>{ regError.textContent=err.message; });
 });
 
 // Login
-const loginError = document.getElementById('loginError');
-const loginSuccess = document.getElementById('loginSuccess');
-loginForm.addEventListener('submit', e=>{
+const loginError=document.getElementById('loginError');
+const loginSuccess=document.getElementById('loginSuccess');
+loginForm.addEventListener('submit',e=>{
   e.preventDefault();
-  const email = document.getElementById('logEmail').value;
-  const password = document.getElementById('logPass').value;
+  const email=document.getElementById('logEmail').value;
+  const password=document.getElementById('logPass').value;
   loginError.textContent=''; loginSuccess.textContent='';
   firebase.auth().signInWithEmailAndPassword(email,password)
-    .then(()=>{
-      loginSuccess.textContent='Login berhasil! Mengarahkan...';
-      setTimeout(()=>{ window.location.href='https://alifkece.github.io/welcome/'; },1500);
-    })
-    .catch(err=>{ loginError.textContent=err.message; });
+  .then(()=>{ loginSuccess.textContent='Login berhasil! Mengarahkan...'; setTimeout(()=>{ window.location.href='https://alifkece.github.io/welcome/'; },1500); })
+  .catch(err=>{ loginError.textContent=err.message; });
 });
 
 // Music Player
@@ -204,15 +226,8 @@ music.addEventListener('play',()=>{ isPlaying=true; playPauseBtn.textContent='�
 music.addEventListener('pause',()=>{ isPlaying=false; playPauseBtn.textContent='▶️'; equalizer.classList.add('paused'); });
 nextBtn.addEventListener('click',()=>{ currentTrack=(currentTrack+1)%playlist.length; loadTrack(currentTrack); });
 prevBtn.addEventListener('click',()=>{ currentTrack=(currentTrack-1+playlist.length)%playlist.length; loadTrack(currentTrack); });
-music.addEventListener('timeupdate',()=>{
-  const progressPercent=(music.currentTime/music.duration)*100||0;
-  progressBar.style.width=progressPercent+'%';
-  timeDisplay.textContent=`${Math.floor(music.currentTime/60).toString().padStart(2,'0')}:${Math.floor(music.currentTime%60).toString().padStart(2,'0')} / ${Math.floor(music.duration/60).toString().padStart(2,'0')}:${Math.floor(music.duration%60).toString().padStart(2,'0')}`;
-});
-progressContainer.addEventListener('click',e=>{
-  const rect=progressContainer.getBoundingClientRect();
-  music.currentTime=(e.clientX-rect.left)/rect.width*music.duration;
-});
+music.addEventListener('timeupdate',()=>{ const progressPercent=(music.currentTime/music.duration)*100||0; progressBar.style.width=progressPercent+'%'; timeDisplay.textContent=`${Math.floor(music.currentTime/60).toString().padStart(2,'0')}:${Math.floor(music.currentTime%60).toString().padStart(2,'0')} / ${Math.floor(music.duration/60).toString().padStart(2,'0')}:${Math.floor(music.duration%60).toString().padStart(2,'0')}`; });
+progressContainer.addEventListener('click',e=>{ const rect=progressContainer.getBoundingClientRect(); music.currentTime=(e.clientX-rect.left)/rect.width*music.duration; });
 
 // Dark/Light Mode
 document.getElementById('mode-toggle').addEventListener('click',()=>{ document.body.classList.toggle('light-mode'); });
